@@ -12,6 +12,8 @@ void __error__(char *pcFilename, uint32_t ui32Line) {
 }
 #endif
 
+double distance  = 0.0;
+
 int main(void) {
 	unsigned char button_val;
 	unsigned char Delta;
@@ -32,6 +34,7 @@ int main(void) {
 	GPIOPinWrite(LED, RED_LED | BLUE_LED | GREEN_LED, 0x00);
 
 	ButtonsInit();
+	InitSonar();
 
 	//
 	// Loop Forever
@@ -50,11 +53,14 @@ int main(void) {
 		}
 
 		if (BUTTON_PRESSED(RIGHT_BUTTON,button_val,Delta)) {
-			isCalibrating = !isCalibrating;
-			if (isCalibrating)
-				GPIOPinWrite(LED, BLUE_LED | GREEN_LED, GREEN_LED);
-			else
-				GPIOPinWrite(LED, RED_LED | BLUE_LED | GREEN_LED, 0x00);
+//			isCalibrating = !isCalibrating;
+//			if (isCalibrating)
+//				GPIOPinWrite(LED, BLUE_LED | GREEN_LED, GREEN_LED);
+//			else
+//				GPIOPinWrite(LED, RED_LED | BLUE_LED | GREEN_LED, 0x00);
+			GPIOPinWrite(LED, BLUE_LED | GREEN_LED, GREEN_LED);
+			distance = GetDistanceSonar();
+			GPIOPinWrite(LED, RED_LED | BLUE_LED | GREEN_LED, 0x00);
 		}
 	}
 }
